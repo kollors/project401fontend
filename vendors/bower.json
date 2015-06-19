@@ -1,0 +1,17 @@
+{
+  "name": "framework",
+  "version": "0.0.0",
+  "description": "",
+  "authors": [
+    "kollors <kollors@mail.ru>"
+  ],
+  "license": "BSD-2-Clause",
+  "dependencies": {
+    "angular": "~1.4.1",
+    "angular-animate": "~1.4.1",
+    "angular-resource": "~1.4.1",
+    "angular-route": "~1.4.1",
+    "angular-touch": "~1.4.1",
+    "bootstrap": "~3.3.5"
+  }
+}

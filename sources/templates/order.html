@@ -1,0 +1,73 @@
+<div class="row">
+    <section class="col-md-5" ng-init="getOrders()">
+        <table class="table table-bordered table-hover">
+            <tr>
+                <th>№</th>
+                <th>Название</th>
+                <th>Дата создания</th>
+            </tr>
+            <tr ng-repeat="order in orders" ng-click="getOrder(order)">
+                <td>{{order.id}}</td>
+                <td>{{order.name}}</td>
+                <td>{{order.created}}</td>
+        </table>
+        <button class="btn btn-default" ng-click="clearOrder()">Добавить заказ</button>
+    </section>
+    <section class="col-md-7">
+        <form class="form-horizontal" novalidate name="orderForm" ng-submit="create ? createOrder() : updateOrder()">
+            <div class="form-group has-feedback"
+                 ng-class="orderForm.name.$error.required ? 'has-error' : 'has-success'">
+                <label for="name" class="col-sm-2 control-label">Название</label>
+
+                <div class="col-sm-10">
+                    <input type="text" name="name" class="form-control" id="name"
+                           placeholder="Название" required ng-model="order.name">
+                    <span class="glyphicon form-control-feedback" aria-hidden="true"
+                          ng-class="orderForm.name.$error.required ? 'glyphicon-remove' : 'glyphicon-ok'"></span>
+                </div>
+            </div>
+            <div class="form-group has-feedback" ng-class="orderForm.manager.$error.required ? 'has-error' : 'has-success'">
+                <label for="manager" class="col-sm-2 control-label">Менеджер</label>
+
+                <div class="col-sm-10" ng-init="getUsers()">
+                    <select class="form-control" name="manager" id="manager" required
+                            ng-model="order.manager.lastName">
+                        <option ng-repeat="user in users">{{user.lastName}}</option>
+                    </select>
+                    <span class="glyphicon form-control-feedback" aria-hidden="true"
+                          ng-class="orderForm.manager.$error.required ? 'glyphicon-remove' : 'glyphicon-ok'"></span>
+                </div>
+            </div>
+            <div class="form-group has-feedback" ng-class="orderForm.client.$error.required ? 'has-error' : 'has-success'">
+                <label for="client" class="col-sm-2 control-label">Клиент</label>
+
+                <div class="col-sm-10" ng-init="getClients()">
+                    <select class="form-control" name="client" id="client" required
+                            ng-model="order.client.name">
+                        <option ng-repeat="client in clients">{{client.name}}</option>
+                    </select>
+                    <span class="glyphicon form-control-feedback" aria-hidden="true"
+                          ng-class="orderForm.client.$error.required ? 'glyphicon-remove' : 'glyphicon-ok'"></span>
+                </div>
+            </div>
+            <div class="form-group has-feedback"
+                 ng-class="orderForm.comments.$error.required ? 'has-error' : 'has-success'">
+                <label for="comments" class="col-sm-2 control-label">Описание</label>
+
+                <div class="col-sm-10">
+                    <textarea name="comments" class="form-control" id="comments"
+                              placeholder="Описание" required ng-model="order.comments"></textarea>
+                    <span class="glyphicon form-control-feedback" aria-hidden="true"
+                          ng-class="orderForm.comments.$error.required ? 'glyphicon-remove' : 'glyphicon-ok'"></span>
+                </div>
+            </div>
+            <div class="form-group">
+                <div class="col-sm-offset-2 col-sm-10">
+                    <button type="submit" class="btn btn-info" ng-disabled="orderForm.$invalid">Сохранить</button>
+                    <button type="button" class="btn btn-danger" ng-hide="create" ng-click="deleteOrder()">Удалить
+                    </button>
+                </div>
+            </div>
+        </form>
+    </section>
+</div>

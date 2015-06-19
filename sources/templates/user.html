@@ -1,0 +1,89 @@
+<div class="row">
+    <section class="col-md-5" ng-init="getUsers()">
+        <table class="table table-bordered table-hover">
+            <tr>
+                <th>№</th>
+                <th>ФИО</th>
+            </tr>
+            <tr ng-repeat="user in users" ng-click="getUser(user)">
+                <td>{{user.id}}</td>
+                <td>{{user.secondName}} {{user.name}} {{user.lastName}}</td>
+        </table>
+        <button class="btn btn-default" ng-click="clearUser()">Добавить пользователя</button>
+    </section>
+    <section class="col-md-7" ng-init="getRoles()">
+        <form class="form-horizontal" novalidate name="userForm" ng-submit="create ? createUser() : updateUser()">
+            <div class="form-group has-feedback"
+                 ng-class="userForm.lastName.$error.required ? 'has-error' : 'has-success'">
+                <label for="lastName" class="col-sm-2 control-label">Фамилия</label>
+
+                <div class="col-sm-10">
+                    <input type="text" name="lastName" class="form-control" id="lastName"
+                           placeholder="Фамилия" required ng-model="user.lastName">
+                    <span class="glyphicon form-control-feedback" aria-hidden="true"
+                          ng-class="userForm.lastName.$error.required ? 'glyphicon-remove' : 'glyphicon-ok'"></span>
+                </div>
+            </div>
+            <div class="form-group has-feedback" ng-class="userForm.name.$error.required ? 'has-error' : 'has-success'">
+                <label for="name" class="col-sm-2 control-label">Имя</label>
+
+                <div class="col-sm-10">
+                    <input type="text" name="name" class="form-control" id="name"
+                           placeholder="Имя" required ng-model="user.name">
+                    <span class="glyphicon form-control-feedback" aria-hidden="true"
+                          ng-class="userForm.name.$error.required ? 'glyphicon-remove' : 'glyphicon-ok'"></span>
+                </div>
+            </div>
+            <div class="form-group has-feedback"
+                 ng-class="userForm.secondName.$error.required ? 'has-error' : 'has-success'">
+                <label for="secondName" class="col-sm-2 control-label">Отчество</label>
+
+                <div class="col-sm-10">
+                    <input type="text" name="secondName" class="form-control" id="secondName"
+                           placeholder="Отчество" required ng-model="user.secondName">
+                    <span class="glyphicon form-control-feedback" aria-hidden="true"
+                          ng-class="userForm.secondName.$error.required ? 'glyphicon-remove' : 'glyphicon-ok'"></span>
+                </div>
+            </div>
+            <div class="form-group has-feedback" ng-class="userForm.email.$invalid ? 'has-error' : 'has-success'">
+                <label for="email" class="col-sm-2 control-label">Email</label>
+
+                <div class="col-sm-10">
+                    <input type="email" name="email" class="form-control" id="email"
+                           placeholder="Email" required ng-model="user.email">
+                    <span class="glyphicon form-control-feedback" aria-hidden="true"
+                          ng-class="userForm.email.$invalid ? 'glyphicon-remove' : 'glyphicon-ok'"></span>
+                </div>
+            </div>
+            <div class="form-group has-feedback"
+                 ng-class="userForm.mobile.$error.required ? 'has-error' : 'has-success'">
+                <label for="mobile" class="col-sm-2 control-label">Телефон</label>
+
+                <div class="col-sm-10">
+                    <input type="tel" class="form-control" name="mobile" id="mobile"
+                           placeholder="Телефон" required ng-model="user.mobile">
+                    <span class="glyphicon form-control-feedback" aria-hidden="true"
+                          ng-class="userForm.mobile.$error.required ? 'glyphicon-remove' : 'glyphicon-ok'"></span>
+                </div>
+            </div>
+            <div class="form-group has-feedback" ng-class="userForm.role.$error.required ? 'has-error' : 'has-success'">
+                <label for="role" class="col-sm-2 control-label">Роль</label>
+
+                <div class="col-sm-10">
+                    <select class="form-control" name="role" id="role" required
+                            ng-model="user.role.name">
+                        <option ng-repeat="role in roles">{{role.name}}</option>
+                    </select>
+                    <span class="glyphicon form-control-feedback" aria-hidden="true"
+                          ng-class="userForm.role.$error.required ? 'glyphicon-remove' : 'glyphicon-ok'"></span>
+                </div>
+            </div>
+            <div class="form-group">
+                <div class="col-sm-offset-2 col-sm-10">
+                    <button type="submit" class="btn btn-info" ng-disabled="userForm.$invalid">Сохранить</button>
+                    <button type="button" class="btn btn-danger" ng-hide="create" ng-click="deleteUser()">Удалить</button>
+                </div>
+            </div>
+        </form>
+    </section>
+</div>
